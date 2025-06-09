@@ -11,14 +11,29 @@
              <div class="border-b-2">
                 <div class="flex items-center p-5">
                     <img src="{{ $post->owner->image }}" alt="{{ $post->owner->username }}" class="mr-5 w-10 h-10 rounded-full">
-                    <a href="/{{ $post->owner->username }}" class="font-bold">{{ $post->owner->username }}</a>
+                    <div class="grow">
+                        <a href="/{{ $post->owner->username }}" class="font-bold">{{ $post->owner->username }}</a>
+                    </div>
+                    @if ($post->owner->id === auth()->id())
+                        <a href="/laravel/my-instagram/public/p/{{$post->slug}}/edit">
+                            <i class="bx bx-message-square-edit text-xl"></i>
+                        </a>
+                    @endif
+                    <!-- delete -->
+                    <form action="/laravel/my-instagram/public/p/{{$post->slug}}/delete" method="POST" class="ml-5">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Are you sure')">
+                            <i class="bx bx-message-square-x text-xl text-red-500 hover:text-red-700"></i>
+                        </button>
+                    </form>
                 </div>
              </div>
 
             <!-- Middle -->
             <div class="flex flex-col grow overflow-y-auto">
                 <div class="flex items-start p-5">
-                    <img src="{{ $post->owner->image }}" class="ltr:mr-5 rtl:ml-5 h-10 w-10 rounded-full">
+                    <img src="{{ $post->owner->image }}" class="ltr:mr-5 mr-3 rtl:ml-5 h-10 w-10 rounded-full">
                     <div>
                         <a href="{{ $post->owner->username }}" class="font-bold">{{ $post->owner->username }}</a>
                         {{ $post->description }}
@@ -31,7 +46,7 @@
                         <div class="flex items-start px-5 py-2">
                             <img src="{{ $comment->owner->image }}" alt="" class="h-100 mr-3 ltr:mr-5 rtl:ml-5 w-10 rounded-full">
                             <div class="flex flex-col">
-                                <div class="">
+                                <div>
                                     <a href="/{{ $comment->owner->username }}" class="font-bold">{{ $comment->owner->username }}:</a>
                                     {{ $comment->body }}
                                 </div>

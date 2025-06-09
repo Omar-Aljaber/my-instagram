@@ -9,7 +9,7 @@ class Post extends Model
 {
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
-    protected $fillable = ['discription', 'slug', 'image'];
+    protected $fillable = ['description', 'slug', 'image'];
 
     /**
      * The attributes that are mass assignable.

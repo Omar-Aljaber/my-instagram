@@ -2,7 +2,7 @@
 
     <div class="card p-10">
         <!-- Title -->
-        <h1 class="text-3xl mb-10">{{ __('Create a new post') }}</h1>
+        <h1 class="text-3xl mb-10">{{ __('Edit your post') }}</h1>
         
         <!-- Errors -->
         <div class="flex flex-col justify-center items-center w-full">
@@ -18,10 +18,11 @@
         </div>
 
         <!-- Form -->
-         <form action="/laravel/my-instagram/public/p/create" method="post" class="w-full" enctype="multipart/form-data">
+         <form action="/laravel/my-instagram/public/p/{{$post->slug}}/update" method="POST" class="w-full" enctype="multipart/form-data">
             @csrf
-            <x-create-edit-form></x-create-edit-form>
-            <x-primary-button class="mt-4">{{__('Create Post')}}</x-primary-button>
+            @method('PATCH')
+            <x-create-edit-form :post="$post" />
+            <x-primary-button class="mt-4">{{__('Update Post')}}</x-primary-button>
         </form>
     </div>
 
