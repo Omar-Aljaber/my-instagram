@@ -39,7 +39,7 @@ class PostController extends Controller
 
         $image = $request['image']->store('posts', 'public');
         $data['image'] = $image;
-        
+
         $data['slug'] = Str::random(10);
         Auth::user()->posts()->create($data);
 
@@ -51,7 +51,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
     /**
