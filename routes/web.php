@@ -3,7 +3,10 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+require __DIR__.'/auth.php';
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -16,6 +19,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/explore', [PostController::class, 'explore'])->name('explore');
+Route::get('/{user:username}', [UserController::class, 'index'])->middleware('auth')->name('user_profile');
 
 Route::controller(PostController::class)->middleware('auth')->group(function () {
     // Home page
@@ -34,5 +38,3 @@ Route::controller(PostController::class)->middleware('auth')->group(function () 
 
 // Add & Edit Comments
 Route::post('/p/{post:slug}/comment', [CommentController::class, 'store'])->name('store_comment')->middleware('auth');
-
-require __DIR__.'/auth.php';

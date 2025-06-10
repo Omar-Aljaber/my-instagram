@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="flex flex-row max-w-3xl gap-8 mx-auto">
         <!-- Left Side -->
-         <div class="w-[50rem] mx-auto lg:w[95rem]">
+         <div class="w-[90rem] mx-auto lg:w[95rem]">
             @forelse ($posts as $post)
                 <x-post :post="$post" />
             @empty
