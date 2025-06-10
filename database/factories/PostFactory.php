@@ -18,7 +18,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'discrription' => fake()->sentence(),
+            'description' => fake()->sentence(),
             'slug' => fake()->regexify('[A-Za-z0-9]{10}'),
             'user_id' => User::factory(),
             'image' => 'https://picsum.photos/seed/' . fake()->unique()->numberBetween(1, 1000) . '/640/480',

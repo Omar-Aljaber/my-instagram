@@ -2,7 +2,7 @@
     <div class="h-screen md:flex md:flex-row">
         <!-- Left Side -->
          <div class="h-full md:w-7/12 bg-black flex items-center">
-            <img src="http://localhost/laravel/my-instagram/storage/app/public/{{$post->image}}" alt="Post by {{$post->owner->username}} showing {{$post->description}} in a modern Instagram-style layout. The scene appears {{$post->emotion ?? 'neutral'}} with a background of dark tones and clean design elements" class="max-h-screen object-cover mx-auto">
+            <img src="{{$post->image}}" alt="Post by {{$post->owner->username}} showing {{$post->description}} in a modern Instagram-style layout. The scene appears {{$post->emotion ?? 'neutral'}} with a background of dark tones and clean design elements" class="max-h-screen object-cover mx-auto">
          </div>
 
          <!-- Right Side -->
@@ -18,15 +18,15 @@
                         <a href="/laravel/my-instagram/public/p/{{$post->slug}}/edit">
                             <i class="bx bx-message-square-edit text-xl"></i>
                         </a>
+                        <!-- delete -->
+                        <form action="/laravel/my-instagram/public/p/{{$post->slug}}/delete" method="POST" class="ml-5">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are you sure')">
+                                <i class="bx bx-message-square-x text-xl text-red-500 hover:text-red-700"></i>
+                            </button>
+                        </form>
                     @endif
-                    <!-- delete -->
-                    <form action="/laravel/my-instagram/public/p/{{$post->slug}}/delete" method="POST" class="ml-5">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Are you sure')">
-                            <i class="bx bx-message-square-x text-xl text-red-500 hover:text-red-700"></i>
-                        </button>
-                    </form>
                 </div>
              </div>
 
