@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -44,15 +46,31 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserProfileRequest $request, User $user)
     {
-        //
+        $data = $request->safe()->collect();
+
+        if($data['password'] == '') {
+            unset ($data['password']);
+        } else {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        if($data->has('image')) {
+            $path = $request->file('image')->store('users', 'public');
+            $data['image'] = '/' . $path;
+        }
+    
+        $data['private_account'] = $request->has('private_account');
+        $user->update($data->toArray());
+        session()->flash('success', 'Profile updated successfully.');
+        return redirect()->route('user_profile', $user);
     }
 
     /**

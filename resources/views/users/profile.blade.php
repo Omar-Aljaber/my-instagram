@@ -1,16 +1,19 @@
 <x-app-layout>
+    <div class="{{ session('success') ? '' : 'hidden' }} w-50 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800 absolute right-10 shadow shadow-neutral-200" role="alert">
+        <span class="font-medium">{{ session('success') }}
+    </div>
     <div class="grid grid-cols-4">
         <!-- User Image -->
         <div class="px-4 col-span-1 order-1">
-            <img src="{{ $user->image }}" alt="{{ $user->username }}' profile picture"
-                 class="rounded-full w-20 md:w-40 border border-neutral-300">
+            <img src="http://localhost/laravel/my-instagram/storage/app/public{{ $user->image }}" alt="{{ $user->username }}' profile picture"
+                 class="rounded-full w-20 w-40 border border-neutral-300">
         </div>
 
         <!-- Username and buttons -->
         <div class="px-4 col-span-2 md:ml-0 flex flex-col order-2 md:col-span-3">
             <div class="text-3xl mb-3">{{ $user->username }}</div>
             @if ($user->id === auth()->id())
-                <a href="/laravel/my-instagram/public/edit"
+                <a href="/laravel/my-instagram/public/{{ $user->username }}/edit"
                     class="w-44 border text-sm font-bold py-1 rounded-md border-neutral-300 text-center">
                     {{ __('Edit Profile') }}
                 </a>
