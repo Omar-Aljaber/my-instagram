@@ -9,6 +9,15 @@
             <img src="{{ $post->image }}" alt="{{ $post->description }}" class="w-full h-auto object-cover">
         </div>
         <div class="p-3">
+            <a href="/laravel/my-instagram/public/p/{{ $post->slug}}/like">
+                @if($post->liked(auth()->user()))
+                    <i class="bx bxs-heart text-3xl text-red-600 hover:text-red-400 cursor-pointer mr-3"></i>
+                @else
+                <i class="bx bx-heart text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+                @endif
+            </a>
+        </div>
+        <div class="p-3">
             <a href="/{{ $post->owner->username }}" class="font-bold mr-l">{{ $post->owner->username }}</a>
             {{ $post->description }}
         </div>
