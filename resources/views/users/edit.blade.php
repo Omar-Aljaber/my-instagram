@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form action="/laravel/my-instagram/public/{{ $user->username }}/update" method="POST" enctype="multipart/form-data">
+    <form action="{{asset($user->username)}}/update" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="md:grid md:grid-cols-3 md:gap-6">

@@ -15,13 +15,13 @@
         <div class="hidden w-[50rem] lg:flex lg:flex-col pt-4">
             <div class="flex flex-row text-sm">
                 <div class="mr-5">
-                    <a href="/{{ auth()->user()->username }}">
+                    <a href="{{asset(auth()->user()->username)}}">
                         <img src="{{ auth()->user()->image }}" alt="{{ auth()->user()->image }}"
                             class="border border-gray-300 rounded-full h-12 w-12 object-cover">
                     </a>
                 </div>
                 <div class="flex flex-col">
-                    <a href="/{{ auth()->user()->username }}" class="font-bold">
+                    <a href="{{asset(auth()->user()->username)}}" class="font-bold">
                         {{ auth()->user()->username }}
                     </a>
                     <div class="text-gray-500 text-sm">{{ auth()->user()->name }}</div>
@@ -40,11 +40,19 @@
                                 </a>
                             </div>
                             <div class="flex flex-col grow">
-                                <a href="/{{ $suggested_user->username }}" class="font-bold">
+                                <a href="{{asset($suggested_user->username)}}" class="font-bold">
                                     {{ $suggested_user->username }}
+                                    @if(auth()->user()->is_follower($suggested_user))
+                                    <span class="text-x5 text-gray-500">{{ __('Follower') }}</span>
+                                    @endif
                                 </a>
                                 <div class="text-gray-500 text-sm">{{ $suggested_user->name }}</div>
                             </div>
+                            @if(auth()->user()->is_pending($suggested_user))
+                                <span class="text-gray-500 font-bold">{{ __('Pending') }}</span>
+                            @else
+                                <a href="{{asset($suggested_user->username)}}/follow" class="text-blue-500 font-bold">{{ __('Follow')}}</a>
+                            @endif
                         </li>
                     @endforeach
                 </ul>

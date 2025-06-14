@@ -2,7 +2,7 @@
     <div class="grid grid-cols-3 gap-1 md:gap-5 mt-8">
         @foreach($posts as $post)
             <div>
-                <a href="/laravel/my-instagram/public/p/{{$post->slug}}">
+                <a href="{{asset('p/' . $post->slug)}}">
                     <img class="w-full aspect-square object-cover" src="{{$post->image}}">
                 </a>
             </div>

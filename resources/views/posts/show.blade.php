@@ -10,22 +10,30 @@
             <!-- Top -->
              <div class="border-b-2">
                 <div class="flex items-center p-5">
-                    <img src="{{ $post->owner->image }}" alt="{{ $post->owner->username }}" class="mr-5 w-10 h-10 rounded-full">
+                    <img src="{{ $post->owner->image }}" alt="photo" class="mr-5 w-10 h-10 rounded-full">
                     <div class="grow">
-                        <a href="/{{ $post->owner->username }}" class="font-bold">{{ $post->owner->username }}</a>
+                        <a href="{{asset($post->owner->username)}}" class="font-bold">{{ $post->owner->username }}</a>
                     </div>
                     @if ($post->owner->id === auth()->id())
-                        <a href="/laravel/my-instagram/public/p/{{$post->slug}}/edit">
+                        <a href="{{asset('p/' . $post->slug)}}/edit">
                             <i class="bx bx-message-square-edit text-xl"></i>
                         </a>
                         <!-- delete -->
-                        <form action="/laravel/my-instagram/public/p/{{$post->slug}}/delete" method="POST" class="ml-5">
+                        <form action="{{asset('p/' . $post->slug)}}/delete" method="POST" class="ml-5">
                             @csrf
                             @method('DELETE')
                             <button type="submit" onclick="return confirm('Are you sure')">
                                 <i class="bx bx-message-square-x text-xl text-red-500 hover:text-red-700"></i>
                             </button>
                         </form>
+                    @elseif (auth()->user()->is_following($post->owner))
+                        <a href="{{asset($post->owner->username)}}/unfollow"
+                            class="w-30 text-blue-400 text-center px-3 py-1 rounded self-start">{{ __('Unfollow') }}</a>
+                    @elseif (auth()->user()->is_pending($post->owner))
+                        <span class="w-30 text-gray-400 text-center px-3 py-1 rounded self-start">{{ __('Pending') }}</span>
+                    @else 
+                        <a href="{{asset($post->owner->username)}}/follow" 
+                            class="w-30 text-blue-400 text-center px-3 py-1 rounded self-start">{{ __('Follow') }}</a>
                     @endif
                 </div>
              </div>
@@ -35,7 +43,7 @@
                 <div class="flex items-start p-5">
                     <img src="{{ $post->owner->image }}" class="ltr:mr-5 mr-3 rtl:ml-5 h-10 w-10 rounded-full">
                     <div>
-                        <a href="{{ $post->owner->username }}" class="font-bold">{{ $post->owner->username }}</a>
+                        <a href="{{asset($post->owner->username)}}" class="font-bold">{{ $post->owner->username }}</a>
                         {{ $post->description }}
                     </div>
                 </div>
@@ -61,7 +69,7 @@
 
             <!-- Likes and Actions -->
             <div class="border-t-2 p-5">
-                <form action="/laravel/my-instagram/public/p/{{$post->slug}}/comment" method="post">
+                <form action="{{asset('p/' . $post->slug)}}/comment" method="post">
                     @csrf
                     <div class="flex flex-row">
                         <textarea name="body" id="comment_body" placeholder="Add a comment ..." 

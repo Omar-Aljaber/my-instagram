@@ -18,7 +18,7 @@
         </div>
 
         <!-- Form -->
-         <form action="/laravel/my-instagram/public/p/{{$post->slug}}/update" method="POST" class="w-full" enctype="multipart/form-data">
+         <form action="{{asset('p/' . $post->slug)}}/update" method="POST" class="w-full" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <x-create-edit-form :post="$post" />

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
-        <img src="{{ $post->owner->image }}" class="w-9 h-9 mr-3 rounded-full">
-        <a href="/{{ $post->owner->username }}" class="font-bold">{{ $post->owner->username }}</a>
+        <img src="{{$post->owner->image}}" class="w-9 h-9 mr-3 rounded-full">
+        <a href="{{asset($post->owner->username)}}" class="font-bold">{{ $post->owner->username }}</a>
     </div>
 
     <div class="card-body">
@@ -9,7 +9,7 @@
             <img src="{{ $post->image }}" alt="{{ $post->description }}" class="w-full h-auto object-cover">
         </div>
         <div class="p-3">
-            <a href="/laravel/my-instagram/public/p/{{ $post->slug}}/like">
+            <a href="{{asset('p/' . $post->slug)}}/like">
                 @if($post->liked(auth()->user()))
                     <i class="bx bxs-heart text-3xl text-red-600 hover:text-red-400 cursor-pointer mr-3"></i>
                 @else
@@ -18,12 +18,12 @@
             </a>
         </div>
         <div class="p-3">
-            <a href="/{{ $post->owner->username }}" class="font-bold mr-l">{{ $post->owner->username }}</a>
+            <a href="{{asset($post->owner->username)}}" class="font-bold mr-l">{{ $post->owner->username }}</a>
             {{ $post->description }}
         </div>
 
         @if($post->comments()->count() > 0)
-            <a href="/laravel/my-instagram/public/p/{{$post->slug}}"
+            <a href="{{asset('p/' . $post->slug)}}"
                 class="p-3 font-bold text-sm text-gray-500">
                 {{ __('View all ' . $post->comments()->count() . ' comments') }}
             </a>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="card-footer">
-        <form action="/laravel/my-instagram/public/p/{{ $post->slug }}/comment" method="POST">
+        <form action="{{asset('p/' . $post->slug)}}/comment" method="POST">
             @csrf
             <div class="flex flex-row">
                 <textarea name="body" placeholder="{{ __('Add a comment...') }}" autocomplete="off" autocorrect="off"

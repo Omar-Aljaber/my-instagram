@@ -74,6 +74,27 @@ class UserController extends Controller
     }
 
     /**
+     * Follow a user.
+     */
+    public function follow(User $user)
+    {
+        auth()->user()->follow($user);
+
+        return back();
+    }
+
+    /**
+     * Unfollow a user.
+     */
+    public function unfollow(User $user)
+    {
+        auth()->user()->unfollow($user);
+
+        return back();
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)

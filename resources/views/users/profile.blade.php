@@ -5,7 +5,7 @@
     <div class="grid grid-cols-4">
         <!-- User Image -->
         <div class="px-4 col-span-1 order-1">
-            <img src="http://localhost/laravel/my-instagram/storage/app/public{{ $user->image }}" alt="{{ $user->username }}' profile picture"
+            <img src="{{ $user->image }}" alt="profile picture"
                  class="rounded-full w-20 w-40 border border-neutral-300">
         </div>
 
@@ -13,10 +13,18 @@
         <div class="px-4 col-span-2 md:ml-0 flex flex-col order-2 md:col-span-3">
             <div class="text-3xl mb-3">{{ $user->username }}</div>
             @if ($user->id === auth()->id())
-                <a href="/laravel/my-instagram/public/{{ $user->username }}/edit"
+                <a href="{{asset($user->username)}}/edit"
                     class="w-44 border text-sm font-bold py-1 rounded-md border-neutral-300 text-center">
                     {{ __('Edit Profile') }}
                 </a>
+            @elseif (auth()->user()->is_following($user))
+                <a href="{{asset($user->username)}}/unfollow"
+                    class="w-30 bg-blue-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Unfollow') }}</a>
+            @elseif (auth()->user()->is_pending($user))
+                <span class="w-30 bg-gray-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Pending') }}</span>
+            @else 
+                <a href="{{asset($user->username)}}/follow" 
+                    class="w-30 bg-gray-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Follow') }}</a>
             @endif
         </div>
 
@@ -38,17 +46,33 @@
                         {{ $user->posts->count() > 1 ? __('posts') : __('post') }}
                     </span>
                 </li>
+                <li class="flex flex-col md:flex-row text-center rtl:ml-5">
+                    <div class="md:ltr:mr-1 md:rtl:ml-1 font-bold md:font-normal">
+                        {{ $user->followers->count() }}
+                    </div>
+                    <span class='text-neutral-500 md:text-black ml-1'>
+                        {{ $user->followers->count() > 1 ? __('followers') : __('follower') }}
+                    </span>
+                </li>
+                <li class="flex flex-col md:flex-row text-center rtl:ml-5">
+                    <div class="md:ltr:mr-1 md:rtl:ml-1 font-bold md:font-normal">
+                        {{ $user->following()->wherePivot('confirmed', true)->get()->count() }}
+                    </div>
+                    <span class='text-neutral-500 md:text-black ml-1'>
+                        {{ __('following') }}
+                    </span>
+                </li>
             </ul>
         </div>
     </div>
 
     <!-- Bottom -->
-    @if ($user->posts()->count() > 0 and ($user->private_account == false or auth()->id() == $user->id))
+    @if($user->posts()->count() > 0 and ($user->private_account == false or auth()->id() == $user->id or auth()->user()->is_following($user)))
         <div class="grid grid-cols-3 gap-4 my-5">
             @foreach ($user->posts as $post)
-                <a class="aspect-square block w-full" href="/laravel/my-instagram/public/p/{{ $post->slug }}">
+                <a class="aspect-square block w-full" href="{{asset('p/' . $post->slug)}}">
                     <div class="group relative">
-                        <img src="http://localhost/laravel/my-instagram/storage/app/public/{{$post->image}}" class="w-full aspect-square object-cover">
+                        <img src="{{$post->image}}" class="w-full aspect-square object-cover">
                     </div>
                 </a>
             @endforeach
