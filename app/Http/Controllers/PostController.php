@@ -8,8 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 class PostController extends Controller
 {
+    use AuthorizesRequests;
+    
     /**
      * Display a listing of the resource.
      */
@@ -63,6 +67,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('edit', $post);
         return view('posts.edit', compact('post'));
     }
 
@@ -71,6 +76,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update', $post);
         $data = $request->validate([
             'description' => 'required',
             'image' => ['nullable', 'mimes:jpg,jpeg,png,gif'],
@@ -91,6 +97,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('update', $post);
         Storage::delete('public/'. $post->image);
 
         $post->delete();

@@ -12,20 +12,29 @@
         <!-- Username and buttons -->
         <div class="px-4 col-span-2 md:ml-0 flex flex-col order-2 md:col-span-3">
             <div class="text-3xl mb-3">{{ $user->username }}</div>
-            @if ($user->id === auth()->id())
-                <a href="{{asset($user->username)}}/edit"
-                    class="w-44 border text-sm font-bold py-1 rounded-md border-neutral-300 text-center">
-                    {{ __('Edit Profile') }}
-                </a>
-            @elseif (auth()->user()->is_following($user))
-                <a href="{{asset($user->username)}}/unfollow"
-                    class="w-30 bg-blue-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Unfollow') }}</a>
-            @elseif (auth()->user()->is_pending($user))
-                <span class="w-30 bg-gray-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Pending') }}</span>
-            @else 
+            @auth 
+                @if ($user->id === auth()->id())
+                    <a href="{{asset($user->username)}}/edit"
+                        class="w-44 border text-sm font-bold py-1 rounded-md border-neutral-300 text-center">
+                        {{ __('Edit Profile') }}
+                    </a>
+                @elseif (auth()->user()->is_following($user))
+                    <a href="{{asset($user->username)}}/unfollow"
+                        class="w-30 bg-blue-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Unfollow') }}
+                    </a>
+                @elseif (auth()->user()->is_pending($user))
+                    <span class="w-30 bg-gray-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Pending') }}</span>
+                @else 
+                    <a href="{{asset($user->username)}}/follow" 
+                        class="w-30 bg-blue-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Follow') }}
+                    </a>
+                @endif
+            @endauth
+            @guest
                 <a href="{{asset($user->username)}}/follow" 
-                    class="w-30 bg-gray-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Follow') }}</a>
-            @endif
+                    class="w-30 bg-blue-400 text-center px-3 py-1 rounded self-start text-white">{{ __('Follow') }}
+                </a>
+            @endguest
         </div>
 
         <!-- User Bio -->
