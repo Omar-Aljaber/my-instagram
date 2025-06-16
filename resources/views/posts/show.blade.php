@@ -69,6 +69,13 @@
             </div>
 
             <!-- Likes and Actions -->
+            <div class="p-3 flex border-t-2 flex-row">
+                <livewire:like :post="$post" />
+                <a class="grow" onclick="document.getElementById('comment_body').focus();">
+                    <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+                </a>
+            </div>
+            <livewire:likedby :post="$post" />
             <div class="border-t-2 p-5">
                 <form action="{{asset('p/' . $post->slug)}}/comment" method="post">
                     @csrf
