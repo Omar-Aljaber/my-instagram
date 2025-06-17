@@ -3,22 +3,29 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class Likedby extends Component
 {
     public $post;
 
-    protected $listeners = ['likeToggled' => 'getLikesProperty'];
-
+    #[On('LikeToggled')]
     public function getLikesProperty()
     {
-        return $this->post->likes()->count();
+        if ($this->post) {
+            return $this->post->likes()->count();
+        }
+        return 0; 
     }
 
     public function getFirstusernameProperty()
     {
-        return $this->post->likes()->first()->username;
+        if ($this->post && $this->post->likes()->first()) {
+            return $this->post->likes()->first()->username;
+        }
+        return 'N/A'; 
     }
+
     public function render()
     {
         return view('livewire.likedby');

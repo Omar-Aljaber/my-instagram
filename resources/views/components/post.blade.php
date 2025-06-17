@@ -15,7 +15,7 @@
                 <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
             </a>
         </div>
-        
+
         <div class="p-3">
             <a href="{{asset($post->owner->username)}}" class="font-bold mr-l">{{ $post->owner->username }}</a>
             {{ $post->description }}
