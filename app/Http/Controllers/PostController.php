@@ -102,7 +102,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect(url('home'));
+        return redirect()->back();
     }
 
     /**

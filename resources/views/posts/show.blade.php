@@ -28,7 +28,7 @@
                         </form>
                     @endcan
                     @cannot('update', $post)
-                        <livewire:Follow :Post="$post" :userId="$post->owner->id" classes="bg-blue-500 text-white" />
+                        <livewire:follow-button :Post="$post" :userId="$post->owner->id" classes="bg-blue-500 text-white" />
                     @endcannot
                 </div>
              </div>

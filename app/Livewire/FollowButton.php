@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Livewire\Component;
 
-class Follow extends Component
+class FollowButton extends Component
 {
     public $post;
     public $userId;
@@ -39,7 +39,7 @@ class Follow extends Component
 
     public function render()
     {
-        return view('livewire.follow');
+        return view('livewire.follow-button');
     }
 }
 

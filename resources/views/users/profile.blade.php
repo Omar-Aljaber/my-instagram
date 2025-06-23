@@ -19,7 +19,7 @@
                         {{ __('Edit Profile') }}
                     </a>
                 @else
-                    <livewire:follow :userId="$user->id" classes="bg-blue-500 text-white" />
+                    <livewire:follow-button :userId="$user->id" classes="bg-blue-500 text-white" />
                 @endif
             @endauth
             @guest
@@ -55,14 +55,7 @@
                         {{ $user->followers->count() > 1 ? __('followers') : __('follower') }}
                     </span>
                 </li>
-                <li class="flex flex-col md:flex-row text-center rtl:ml-5">
-                    <div class="md:ltr:mr-1 md:rtl:ml-1 font-bold md:font-normal">
-                        {{ $user->following()->wherePivot('confirmed', true)->get()->count() }}
-                    </div>
-                    <span class='text-neutral-500 md:text-black ml-1'>
-                        {{ __('following') }}
-                    </span>
-                </li>
+                <livewire:following :userId="$user->id" />
             </ul>
         </div>
     </div>
