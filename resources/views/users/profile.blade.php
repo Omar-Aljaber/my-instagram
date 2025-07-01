@@ -66,7 +66,7 @@
             @foreach ($user->posts as $post)
                 <a class="aspect-square block w-full" href="{{asset('p/' . $post->slug)}}">
                     <div class="group relative">
-                        <img src="{{$post->image}}" class="w-full aspect-square object-cover">
+                        <img src="{{ asset('storage/' . $post->image) }}" class="w-full aspect-square object-cover">
                     </div>
                 </a>
             @endforeach

@@ -38,20 +38,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request['imaPge']);
-
         $data = $request->validate([
             'description' => 'required',
             'image' => ['required', 'mimes:jpg,jpeg,png,gif'],
         ]);
 
-        $image = $request['image']->store('posts', 'public');
-        $data['image'] = $image;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/posts'), $filename);
+
+            $data['image'] = 'posts/' . $filename;
+        } else {
+            return back()->withErrors(['image' => 'Bild konnte nicht hochgeladen werden.']);
+        }
 
         $data['slug'] = Str::random(10);
-        Auth::user()->posts()->create($data);
+        auth()->user()->posts()->create($data);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Beitrag erfolgreich erstellt!');
     }
 
     /**
@@ -102,7 +107,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->back();
+        return redirect("/");
     }
 
     /**

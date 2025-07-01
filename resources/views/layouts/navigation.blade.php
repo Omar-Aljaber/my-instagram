@@ -41,12 +41,9 @@
                     </a>
 
                     <!-- Create Post -->
-                    <a class="text-[1.6rem]" href="{{ route('create_post') }}">
-                        {!! url()->current() == route('create_post') 
-                            ? '<i class="bx bxs-message-square-add"></i>' 
-                            : '<i class="bx bx-message-square-add"></i>' 
-                        !!}
-                    </a>
+                    <button onclick="Livewire.dispatch('openModal', {component: 'create-post-modal'})">
+                        <i class="bx bx-message-square-add text-[1.6rem]"></i>
+                    </button>
                     <div class="hidden md:block">
                         <x-dropdown align="right" width="96">
                             <x-slot name="trigger">
@@ -130,9 +127,7 @@
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-responsive-nav-link :href="route('logout')"
-                                               onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>

@@ -10,18 +10,20 @@ class UpdateUserProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @return bool
      */
     public function authorize(): bool
     {
-        return Gate::allows('edit-update-profile', $this->user);
+        return Gate::allows('edit-update-profile', $this->route('user'));
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, mixed>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'username' => ['required', Rule::unique('users')->ignore($this->user())],

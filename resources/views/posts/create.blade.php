@@ -20,7 +20,7 @@
         <!-- Form -->
          <form action="{{asset('p/' . 'create')}}" method="post" class="w-full" enctype="multipart/form-data">
             @csrf
-            <x-create-edit-form></x-create-edit-form>
+            <x-create-edit-form />
             <x-primary-button class="mt-4">{{__('Create Post')}}</x-primary-button>
         </form>
     </div>

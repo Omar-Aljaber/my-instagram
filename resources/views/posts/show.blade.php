@@ -2,7 +2,7 @@
     <div class="h-screen md:flex md:flex-row">
         <!-- Left Side -->
          <div class="h-full md:w-7/12 bg-black flex items-center">
-            <img src="{{$post->image}}" alt="Post by {{$post->owner->username}} showing {{$post->description}} in a modern Instagram-style layout. The scene appears {{$post->emotion ?? 'neutral'}} with a background of dark tones and clean design elements" class="max-h-screen object-cover mx-auto">
+            <img src="{{ asset($post->image) }}" alt="Post by {{$post->owner->username}} showing {{$post->description}} in a modern Instagram-style layout. The scene appears {{$post->emotion ?? 'neutral'}} with a background of dark tones and clean design elements" class="max-h-screen object-cover mx-auto">
          </div>
 
          <!-- Right Side -->
