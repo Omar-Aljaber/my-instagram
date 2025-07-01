@@ -58,7 +58,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserProfileRequest $request, User $user)
+    public function update(User $user, UpdateUserProfileRequest $request)
     {
         $data = $request->safe()->collect();
 

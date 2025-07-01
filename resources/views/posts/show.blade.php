@@ -2,7 +2,12 @@
     <div class="h-screen md:flex md:flex-row">
         <!-- Left Side -->
          <div class="h-full md:w-7/12 bg-black flex items-center">
-            <img src="{{ asset($post->image) }}" alt="Post by {{$post->owner->username}} showing {{$post->description}} in a modern Instagram-style layout. The scene appears {{$post->emotion ?? 'neutral'}} with a background of dark tones and clean design elements" class="max-h-screen object-cover mx-auto">
+            @can('update', $post)
+                <img src="{{ asset('storage/' . $post->image) }}" class="max-h-screen object-cover mx-auto">
+            @endcan
+            @cannot('update', $post)
+                <img src="{{ asset($post->image) }}" class="max-h-screen object-cover mx-auto">
+            @endcannot
          </div>
 
          <!-- Right Side -->
@@ -15,9 +20,13 @@
                         <a href="{{asset($post->owner->username)}}" class="font-bold">{{ $post->owner->username }}</a>
                     </div>
                     @can('update', $post)
-                        <a href="{{asset('p/' . $post->slug)}}/edit">
+                        <!-- edit -->
+                        {{-- <a href="{{asset('p/' . $post->slug)}}/edit">
                             <i class="bx bx-message-square-edit text-xl"></i>
-                        </a>
+                        </a> --}}
+                        <button onclick="Livewire.dispatch('openModal',{component: 'edit-post-modal',arguments:{postid:{{ $post->id }}}})">
+                            <i class='bx bx-message-square-edit text-xl'></i>
+                        </button>
                         <!-- delete -->
                         <form action="{{asset('p/' . $post->slug)}}/delete" method="POST" class="ml-5">
                             @csrf

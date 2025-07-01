@@ -66,7 +66,12 @@
             @foreach ($user->posts as $post)
                 <a class="aspect-square block w-full" href="{{asset('p/' . $post->slug)}}">
                     <div class="group relative">
-                        <img src="{{ asset('storage/' . $post->image) }}" class="w-full aspect-square object-cover">
+                        @can('update', $post)
+                            <img src="{{ asset('storage/' . $post->image) }}" class="w-full aspect-square object-cover">
+                        @endcan
+                        @cannot('update', $post)
+                            <img src="{{ asset($post->image) }}" class="w-full aspect-square object-cover">
+                        @endcannot
                     </div>
                 </a>
             @endforeach
