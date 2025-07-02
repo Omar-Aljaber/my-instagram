@@ -11,6 +11,11 @@
                 </div>
             </div>
 
+            <!-- Search -->
+            <div class="hidden sm:flex sm:items-center">
+                <livewire:search />
+            </div>
+
             <!-- Settings Dropdown -->
             <div class="sm:flex sm:items-center">
                 @guest
