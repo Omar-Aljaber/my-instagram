@@ -31,14 +31,14 @@
                 @auth
                 <div class="hidden md:flex md:flex-row space-x-3 items-center justify-center">
                     <!-- Home -->
-                    <a class="text-[1.6rem]" href="{{ route('home_page') }}">
+                    <a class="text-[1.6rem] rtl:ml-3" href="{{ route('home_page') }}">
                         {!! url()->current() == route('home_page')
                             ? '<i class="bx bxs-home-alt-2"></i>'
                             : '<i class="bx bx-home-alt-2"></i>' !!}
                     </a>
 
                     <!-- Explore -->
-                    <a class="text-[1.6rem]" href="{{ route('explore') }}">
+                    <a class="text-[1.6rem] rtl:ml-3" href="{{ route('explore') }}">
                         {!! url()->current() == route('explore') 
                             ? '<i class="bx bxs-compass"></i>' 
                             : '<i class="bx bx-compass"></i>' 

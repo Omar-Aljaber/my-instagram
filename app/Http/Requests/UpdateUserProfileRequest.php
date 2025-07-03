@@ -13,7 +13,7 @@ class UpdateUserProfileRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return Gate::allows('edit-update-profile', $this->user);
     }
@@ -30,6 +30,7 @@ class UpdateUserProfileRequest extends FormRequest
             'bio' => 'nullable',
             'image' => 'image',
             'name' => 'required',
+            'lang' => 'required',
             'email' => ['required', 'email'],
             'password' => ['min:8', 'nullable', 'confirmed'],
         ];

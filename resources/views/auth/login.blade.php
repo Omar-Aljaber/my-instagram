@@ -44,4 +44,14 @@
             </x-primary-button>
         </div>
     </form>
+    <div class="flex justify-end p-4">
+        <ul class="flex space-x-4">
+            <li>
+                <a href="{{ route('changeLang','en') }}" class="text-gray-600 hover:text-gray-900 {{ app()->getLocale()== 'en' ? 'font-bold' : '' }}">English</a>
+            </li>
+            <li>
+                <a href="{{ route('changeLang','ar') }}" class="text-gray-600 hover:text-gray-900 {{ app()->getLocale()== 'ar' ? 'font-bold' : '' }}">العربية</a>
+            </li>
+        </ul>
+    </div>
 </x-guest-layout>

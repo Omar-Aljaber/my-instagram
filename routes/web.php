@@ -3,21 +3,28 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 require __DIR__.'/auth.php';
+
+Route::get('/greeting/{locale}', function (string $locale) {
+
+    if (! in_array($locale, ['ar', 'en'])) {
+        abort(400, 'Invalid Language');
+    }
+    Session::put('locale', $locale);
+    App::setLocale($locale);
+    return redirect()->back();
+})->name('changeLang');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 Route::get('/explore', [PostController::class, 'explore'])->name('explore');
 Route::get('/{user:username}', [UserController::class, 'index'])->name('user_profile');

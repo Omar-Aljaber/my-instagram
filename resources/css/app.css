@@ -29,5 +29,7 @@
         margin-inline-end: 1rem;
     }
 
-
+    *{
+        @apply font-body;
+    }
 }

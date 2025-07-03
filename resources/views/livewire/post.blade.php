@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         <img src="{{$post->owner->image}}" class="w-9 h-9 mr-3 rounded-full">
-        <a href="{{asset($post->owner->username)}}" class="font-bold">{{ $post->owner->username }}</a>
+        <a href="{{asset($post->owner->username)}}" class="font-bold mr-2">{{ $post->owner->username }}</a>
     </div>
 
     <div class="card-body">

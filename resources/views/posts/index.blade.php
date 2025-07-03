@@ -4,7 +4,7 @@
         <livewire:posts-list />
         <!-- Right Side -->
         <div class="hidden w-[50rem] lg:flex lg:flex-col pt-4">
-            <div class="flex flex-row text-sm">
+            <div class="flex flex-row text-sm gap-2">
                 <div class="mr-5">
                     <a href="{{asset(auth()->user()->username)}}">
                         <img src="{{asset(auth()->user()->image)}}" alt="photo"
@@ -21,10 +21,10 @@
             
             <!-- Suggested Users -->
             <div class="mt-5">
-                <h3 class="text-gray-500 font-bold">{{ __('Suggestions For You') }}</h3>
+                <h3 class="text-gray-500 font-bold">{{ __('Suggestions for you') }}</h3>
                 <ul>
                     @foreach ($suggested_users as $suggested_user)
-                        <li class="flex flex-row my-5 text-sm justify-items-center items-center">
+                        <li class="flex flex-row my-5 text-sm justify-items-center items-center gap-2">
                             <div class="mr-5">
                                 <a href="{{asset($suggested_user->username)}}">
                                     <img src="{{ $suggested_user->image }}" class="rounded-full h-9 w-9 border border-gray-300">

@@ -4,7 +4,7 @@
             {{ $this->count }}
         </div>
         <button onclick="Livewire.dispatch('openModal', {component: 'following-modal',  arguments: {userId: {{$userId}} }})" class='text-neutral-500 md:text-black ml-1'>
-            {{ __('following') }}
+            {{ __('Following') }}
         </button>
     </li>
 </div>

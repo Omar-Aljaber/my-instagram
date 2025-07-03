@@ -43,6 +43,7 @@ class RegisteredUserController extends Controller
             'image' => 'https://ui-avatars.com/api/?name='.urldecode($request->name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'lang' => $request->lang ?? 'en',
         ]);
 
         event(new Registered($user));
